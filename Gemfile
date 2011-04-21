@@ -1,9 +1,14 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.5'
+gem 'capistrano'
 
-group :test do
+group :development, :test do
   gem 'sqlite3'
+end
+
+group :production do
+  gem 'mysql2'
 end
 
 group :test do
