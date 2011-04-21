@@ -33,7 +33,7 @@ class AbstractCardTest < ActiveSupport::TestCase
   end
   
   should "validate uniqueness of name" do
-    abstract_card_one = AbstractCard.create(:name => "intergalact proton powered electric advertising droid", :description => "awesome", :path_to_img => "img.png", :mana => 0, :loading => 0)
+    abstract_card_one = AbstractCard.create(:name => "intergalactic proton powered electric advertising droid", :description => "awesome", :path_to_img => "img.png", :mana => 0, :loading => 0)
     assert_valid abstract_card_one
     
     assert !AbstractCard.make_unsaved(:name => abstract_card_one.name).valid?
