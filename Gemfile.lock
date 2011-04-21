@@ -65,7 +65,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.16)
     mocha (0.9.12)
-    mysql (2.8.1-x86-mingw32)
+    mysql2 (0.2.7)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -118,7 +118,7 @@ DEPENDENCIES
   faker (= 0.3.1)
   machinist
   mocha
-  mysql
+  mysql2
   rails (= 3.0.5)
   shoulda
   sqlite3
