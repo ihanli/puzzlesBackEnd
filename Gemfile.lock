@@ -80,7 +80,7 @@ GEM
       thor (~> 0.14.4)
     rake (0.8.7)
     rubyzip (0.9.4)
-    selenium-webdriver (0.1.4)
+    selenium-webdriver (0.2.0)
       childprocess (>= 0.1.7)
       ffi (>= 1.0.7)
       json_pure
