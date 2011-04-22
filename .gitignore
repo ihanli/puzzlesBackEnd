@@ -5,3 +5,5 @@ tmp/
 config/database.yml
 .buildpath
 .project
+config/deploy.rb
+public/.*
