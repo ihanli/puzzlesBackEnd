@@ -1,6 +1,8 @@
 class DecksController < ApplicationController
   def index
-    @decks = Deck.all
+    #TODO: give id of logged in user as parameter
+    
+    @decks = Deck.get_decks_by_user(params[:user_id])
       
     respond_to do |format|
      format.xml
