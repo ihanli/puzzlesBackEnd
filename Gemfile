@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.5'
+gem 'flay'
+gem 'flog'
 
 group :test do
   gem 'sqlite3'
