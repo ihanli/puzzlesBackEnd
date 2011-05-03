@@ -68,7 +68,7 @@ class Card < ActiveRecord::Base
     transitions :from => :destroyed, :to => :off_game
   end
   
-  has_many :abstract_card
+  belongs_to :abstract_card
   has_one :user
   has_and_belongs_to_many :decks
   

@@ -1,7 +1,7 @@
 class AbstractCard < ActiveRecord::Base
   has_one :unit, :dependent => :delete
   has_one :spell, :dependent => :delete
-  belongs_to :cards
+  has_many :cards
   
   validates_presence_of :name, :description, :path_to_img, :mana, :loading
   validates_uniqueness_of :name
