@@ -1,2 +1,2 @@
 xml.instruct!
-render 'deck_struct', { :deck => @deck, :cards => @deck.cards }
+xml << render(:partial => 'deck_struct', :locals => { :deck => @deck } )
