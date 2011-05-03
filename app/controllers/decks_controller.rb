@@ -5,7 +5,7 @@ class DecksController < ApplicationController
     @decks = Deck.get_decks_by_user(params[:user_id])
       
     respond_to do |format|
-     format.xml
+      format.xml
     end
   end
   
@@ -13,7 +13,7 @@ class DecksController < ApplicationController
     @deck = Deck.find(params[:id])
       
     respond_to do |format|
-     format.xml
+      format.xml
     end
   end
   
