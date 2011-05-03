@@ -3,11 +3,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
       
     respond_to do |format|
-     format.xml
+      format.xml
     end
-  end
-
-  def new
   end
   
   def create
