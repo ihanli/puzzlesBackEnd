@@ -32,6 +32,15 @@ User.blueprint do
 	experience { 1872 }
 end
 
+Fighter.blueprint do
+  battle_id { 1 }
+  user_id { 1 }
+end
+
+Battle.blueprint do
+  
+end
+
 Card.blueprint do
 	puzzles { 3 }
 	abstract_card_id { 24 }
