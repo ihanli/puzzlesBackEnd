@@ -1,2 +1,2 @@
 xml.instruct!
-render 'deck_struct', { :deck => @deck }
+render 'deck_struct', { :deck => @deck, :cards => @deck.cards }
