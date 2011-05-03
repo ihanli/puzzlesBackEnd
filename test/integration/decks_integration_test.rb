@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TasksIntegrationTest < ActionDispatch::IntegrationTest
+class DecksIntegrationTest < ActionDispatch::IntegrationTest
   should "show all decks of an user" do
     Deck.make(Deck.plan)
     visit decks_path
