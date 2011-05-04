@@ -1,6 +1,6 @@
 class Deck < ActiveRecord::Base
   has_and_belongs_to_many :cards
-  belongs_to :fighter
+  has_one :fighter
   
   validates_presence_of :name
   validates_associated :cards

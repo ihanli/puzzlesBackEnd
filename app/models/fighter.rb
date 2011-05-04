@@ -23,7 +23,7 @@ class Fighter < ActiveRecord::Base
   belongs_to :user
   #TODO: dependent => test me
   belongs_to :battle, :dependent => :delete
-  has_one :deck
+  belongs_to :deck
   
   validates_associated :user
   validates_associated :battle
