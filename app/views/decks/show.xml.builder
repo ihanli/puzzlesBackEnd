@@ -1,2 +1,2 @@
 xml.instruct!
-xml << render(:partial => 'deck_struct', :locals => { :deck => @deck } )
+xml << render(:partial => 'layouts/deck_struct', :locals => { :deck => @deck })
