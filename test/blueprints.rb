@@ -47,3 +47,8 @@ Card.blueprint do
 	user_id { 2655 }
 end
 
+CardInGame.blueprint do
+  card_id { 1 }
+  fighter_id { 1 }
+end
+

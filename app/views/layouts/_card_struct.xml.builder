@@ -1,9 +1,9 @@
 cards.each do |card|
-  @card_type = card.abstract_card.unit ? card.abstract_card.unit.class.name : card.abstract_card.spell.class.name
+  card_type = card.abstract_card.unit ? card.abstract_card.unit.class.name : card.abstract_card.spell.class.name
 
   xml.Card{
     xml.id(card.id)
-    xml.class(@card_type)
+    xml.type(card_type)
     xml.name(card.abstract_card.name)
     xml.loading(card.abstract_card.loading)
     xml.image(card.abstract_card.path_to_img)
