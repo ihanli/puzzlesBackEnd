@@ -9,22 +9,25 @@ class FightersController < ApplicationController
     end
   end
   
-  def begin
-    #TODO: give id of logged in user as parameter
-    fighter = Fighter.find_by_user_id(params[:user_id])
-    fighter.proceed!
-  end
-  
-  def end_turn
-    fighters = Fighter.get_fighters_by_battle(params[:id])
-      
+  def update
+    fighters = Fighter.get_fighters_by_battle(params[:battle_id])
+
     fighters.each do |fighter|
-      #TODO: give id of logged in user as parameter
-      if fighter.user.fb_id == params[:user_id]
-        fighter.proceed!
-      else
-        fighter.wait!
+      tmp_state = fighter.state
+
+      case params[:event]
+      when "proceed" || "wait"
+        #TODO: give id of logged in user as parameter
+        if fighter.user.fb_id == params[:user_id]
+          fighter.wait!
+        else
+          fighter.proceed!
+        end
+      when "finish"
+        fighter.finish!
       end
+      
+      render :status => 418 unless tmp_state != fighter.state
     end
   end
 end

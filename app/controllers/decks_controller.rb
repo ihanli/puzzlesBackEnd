@@ -25,6 +25,19 @@ class DecksController < ApplicationController
     end
   end
   
+  def update
+    deck = Deck.find_by_id(params[:id])
+    tmp_state = deck.state
+      
+    unless deck.cards.first.card_in_games
+      deck.free!
+    else
+      deck.occupy!
+    end
+    
+   # render :status => 418 unless tmp_state != deck.state
+  end
+  
   def destroy
     @deck = Deck.find(params[:id])
       
