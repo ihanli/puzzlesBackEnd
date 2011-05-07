@@ -17,6 +17,7 @@ class BattlesController < ApplicationController
       
     respond_to do |format|
       format.xml
+      format.html
     end
   end
   

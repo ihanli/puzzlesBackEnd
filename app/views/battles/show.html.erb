@@ -1,0 +1,11 @@
+<h1>Battle <%= @battle.id %></h1>
+<ul><% @battle.fighters.each do |fighter| %>
+  <li>
+    <%= fighter.deck.name %>
+	<ul>
+    <% fighter.card_in_games.each do |card| %>
+	  <li><%= card.inspect %></li>
+	<% end %>
+	</ul>
+  </li>
+<% end %></ul>

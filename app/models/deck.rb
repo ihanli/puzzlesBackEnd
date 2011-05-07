@@ -1,4 +1,16 @@
 class Deck < ActiveRecord::Base
+  acts_as_state_machine :initial => :free
+  state :free
+  state :occupied
+  
+  event :occupy do
+    transitions :from => :free, :to => :occupied
+  end
+  
+  event :free do
+    transitions :from => :occupied, :to => :free
+  end
+  
   has_and_belongs_to_many :cards
   has_one :fighter
   
