@@ -4,6 +4,7 @@ cards.each do |card|
   xml.Card{
     xml.id(card.id)
     xml.type(card_type)
+    xml.targetType(card.abstract_card.target_type)
     xml.name(card.abstract_card.name)
     xml.loading(card.abstract_card.loading)
     xml.image(card.abstract_card.path_to_img)
