@@ -4,6 +4,7 @@ cards.each do |card_in_game|
   xml.Card(:state => (card_in_game.inactive? || card_in_game.attacking?) ? card_in_game.state : ""){
     xml.id(card_in_game.card.id)
     xml.type(card_type)
+    xml.targetType(card_in_game.card.abstract_card.target_type)
     xml.name(card_in_game.card.abstract_card.name)
     xml.loading(card_in_game.card.abstract_card.loading)
     xml.image(card_in_game.card.abstract_card.path_to_img)
