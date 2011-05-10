@@ -3,7 +3,7 @@ class AbstractCard < ActiveRecord::Base
   has_one :spell, :dependent => :delete
   has_many :cards
   
-  validates_presence_of :name, :description, :path_to_img, :mana, :loading
+  validates_presence_of :name, :description, :path_to_img, :mana, :loading, :target_type
   validates_uniqueness_of :name
   validates_size_of :description, :within => 1..140
   validates_size_of :path_to_img, :minimum => 5

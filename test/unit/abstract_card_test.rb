@@ -6,6 +6,7 @@ class AbstractCardTest < ActiveSupport::TestCase
   should validate_presence_of(:path_to_img)
   should validate_presence_of(:loading)
   should validate_presence_of(:mana)
+  should validate_presence_of(:target_type)
   
   should "validate description length" do
     assert_valid AbstractCard.make_unsaved
