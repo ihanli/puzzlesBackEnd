@@ -4,7 +4,7 @@ class CreateCards < ActiveRecord::Migration
       t.integer :puzzles
       t.integer :user_id
       t.integer :abstract_card_id
-      
+
       t.timestamps
     end
   end
