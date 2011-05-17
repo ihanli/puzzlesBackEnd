@@ -7,3 +7,6 @@ config/database.yml
 .project
 config/deploy.rb
 public/.*
+public/images/cards/
+*.html
+*.html.*
