@@ -1,22 +1,22 @@
 cards.each do |card|
-  card_type = card.abstract_card.unit ? card.abstract_card.unit.class.name : card.abstract_card.spell.class.name
-
   xml.Card{
     xml.id(card.id)
-    xml.type(card_type)
-    xml.targetType(card.abstract_card.target_type)
-    xml.name(card.abstract_card.name)
-    xml.loading(card.abstract_card.loading)
-    xml.image(card.abstract_card.path_to_img)
-    xml.description(card.abstract_card.description)
-    xml.talent(card.abstract_card.talent)
-    xml.mana(card.abstract_card.mana)
-    
-    if card.abstract_card.unit
-      xml.attack(card.abstract_card.unit.attack)
-      xml.health(card.abstract_card.unit.health)
+    xml.type(card.class_name)
+    xml.targetType(card.target_type)
+    xml.name(card.name)
+    xml.loading(card.loading)
+    xml.image(card.path_to_img)
+    xml.description(card.description)
+    xml.talent(card.talent)
+    xml.mana(card.mana)
+
+    xml.state(card.state) if card.inactive? || card.attacking?
+
+    if card.class_name == 'Unit'
+      xml.attack(card.attack)
+      xml.health(card.health)
     else
-      xml.duration(card.abstract_card.spell.duration)
+      xml.duration(card.duration)
     end
   }
 end
