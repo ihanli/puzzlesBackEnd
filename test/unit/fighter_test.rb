@@ -18,38 +18,44 @@ class FighterTest < ActiveSupport::TestCase
     assert test_fighter.ready?
   end
   
-  should "test proceed event" do
+  should "test if fighter proceeds at beginning" do
     test_fighter = Fighter.create(Fighter.plan)
-    
     test_fighter.proceed!
     assert test_fighter.proceeding?
-    
+  end
+  
+  should "test if fighter proceeds after turn of opponent ended" do
+    test_fighter = Fighter.create(Fighter.plan)
     test_fighter.wait!
     assert test_fighter.waiting?
     test_fighter.proceed!
     assert test_fighter.proceeding?
   end
   
-  should "test wait event" do
+  should "test if fighter waits for his turn after start" do
     test_fighter = Fighter.create(Fighter.plan)
-    
     test_fighter.wait!
     assert test_fighter.waiting?
-    
+  end
+  
+  should "test if fighter waits after his turn ended" do
+    test_fighter = Fighter.create(Fighter.plan)
     test_fighter.proceed!
     assert test_fighter.proceeding?
     test_fighter.wait!
     assert test_fighter.waiting?
   end
-
-  should "test finish event" do
+  
+  should "test if fighter can quit battle while waiting" do
     test_fighter = Fighter.create(Fighter.plan)
-    
     test_fighter.wait!
     assert test_fighter.waiting?
     test_fighter.finish!
     assert test_fighter.finished?
-    
+  end
+
+  should "test if fighter can quit battle during his turn" do
+    test_fighter = Fighter.create(Fighter.plan)
     test_fighter.state = "proceeding"
     assert test_fighter.proceeding?
     test_fighter.finish!

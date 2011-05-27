@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110509184404) do
+ActiveRecord::Schema.define(:version => 20110517135759) do
 
   create_table "abstract_cards", :force => true do |t|
     t.string   "description"
@@ -38,6 +38,10 @@ ActiveRecord::Schema.define(:version => 20110509184404) do
     t.integer  "target_id"
   end
 
+  add_index "card_in_games", ["card_id"], :name => "index_card_in_games_on_card_id"
+  add_index "card_in_games", ["fighter_id"], :name => "index_card_in_games_on_fighter_id"
+  add_index "card_in_games", ["target_id"], :name => "index_card_in_games_on_target_id"
+
   create_table "cards", :force => true do |t|
     t.integer  "puzzles"
     t.integer  "user_id"
@@ -46,10 +50,16 @@ ActiveRecord::Schema.define(:version => 20110509184404) do
     t.datetime "updated_at"
   end
 
+  add_index "cards", ["abstract_card_id"], :name => "index_cards_on_abstract_card_id"
+  add_index "cards", ["user_id"], :name => "index_cards_on_user_id"
+
   create_table "cards_decks", :id => false, :force => true do |t|
     t.integer "card_id"
     t.integer "deck_id"
   end
+
+  add_index "cards_decks", ["card_id"], :name => "index_cards_decks_on_card_id"
+  add_index "cards_decks", ["deck_id"], :name => "index_cards_decks_on_deck_id"
 
   create_table "decks", :force => true do |t|
     t.string   "name"
@@ -69,6 +79,10 @@ ActiveRecord::Schema.define(:version => 20110509184404) do
     t.integer  "deck_id"
   end
 
+  add_index "fighters", ["battle_id"], :name => "index_fighters_on_battle_id"
+  add_index "fighters", ["deck_id"], :name => "index_fighters_on_deck_id"
+  add_index "fighters", ["user_id"], :name => "index_fighters_on_user_id"
+
   create_table "spells", :force => true do |t|
     t.integer  "duration"
     t.integer  "abstract_card_id"
@@ -77,6 +91,8 @@ ActiveRecord::Schema.define(:version => 20110509184404) do
     t.string   "category"
   end
 
+  add_index "spells", ["abstract_card_id"], :name => "index_spells_on_abstract_card_id"
+
   create_table "units", :force => true do |t|
     t.integer  "attack"
     t.integer  "health"
@@ -84,6 +100,8 @@ ActiveRecord::Schema.define(:version => 20110509184404) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "units", ["abstract_card_id"], :name => "index_units_on_abstract_card_id"
 
   create_table "users", :force => true do |t|
     t.integer  "fb_id"

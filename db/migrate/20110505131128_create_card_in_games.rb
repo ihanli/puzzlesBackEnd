@@ -4,7 +4,7 @@ class CreateCardInGames < ActiveRecord::Migration
       t.integer :fighter_id
       t.integer :card_id
       t.string :state
-      
+
       t.timestamps
     end
   end

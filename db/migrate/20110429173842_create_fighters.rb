@@ -6,7 +6,7 @@ class CreateFighters < ActiveRecord::Migration
       t.integer :mana, :default => 5
       t.integer :health, :default => 25
       t.string :state
-      
+
       t.timestamps
     end
   end

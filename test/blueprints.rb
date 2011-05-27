@@ -10,6 +10,7 @@ AbstractCard.blueprint do
   path_to_img { "path/img.png" }
   loading { 0 }
   mana { 0 }
+  target_type { "unit" }
 end
 
 Spell.blueprint do
@@ -44,7 +45,7 @@ end
 Card.blueprint do
 	puzzles { 3 }
 	abstract_card_id { 24 }
-	user_id { 2655 }
+	user_id { 1 }
 end
 
 CardInGame.blueprint do

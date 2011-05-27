@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'nokogiri'
 
 class BattlesControllerTest < ActionController::TestCase
   should "get :index" do
