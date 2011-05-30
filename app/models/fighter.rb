@@ -5,6 +5,14 @@ class Fighter < ActiveRecord::Base
   state :waiting
   state :finished
 
+  private
+  @@white_list = ["proceed", "wait", "finish"]
+
+#  def toggle_state
+#  end
+
+  public
+
   event :proceed do
     transitions :from => :ready, :to => :proceeding
     transitions :from => :waiting, :to => :proceeding
@@ -36,6 +44,7 @@ class Fighter < ActiveRecord::Base
     self.find(:all, :conditions => ['battle_id = ?', battle_id])
   end
 
+  #TODO: test me from here
   def fbid
     user.fb_id
   end
@@ -43,6 +52,17 @@ class Fighter < ActiveRecord::Base
   def experience
     user.experience
   end
+
+#  def transition_to(event)
+#    @@white_list.each do |s|
+#      if s == event
+#        tmp_state = state
+#        send("#{event}!")
+#        return true if tmp_state != state
+#      end
+#    end
+#    false
+#  end
 
   def transition_to(event)
     self.each do |fighter|

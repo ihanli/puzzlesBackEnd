@@ -8,21 +8,14 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
-
-    if @user.save
-      redirect_to user_path(@user.id)
-    else
-      render :status => 500
-    end
+    user = User.new(params[:user])
+    redirect_to user_path(user.id) if user.save
+    head 500
   end
 
   def destroy
-    if @user.destroy
-      redirect_to users_path
-    else
-      render :status => 500
-    end
+    redirect_to users_path if @user.destroy
+    head 500
   end
 
   protected
