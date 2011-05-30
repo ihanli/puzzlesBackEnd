@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110517135759) do
+ActiveRecord::Schema.define(:version => 20110521193824) do
 
   create_table "abstract_cards", :force => true do |t|
     t.string   "description"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(:version => 20110517135759) do
   create_table "battles", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state"
   end
 
   create_table "card_in_games", :force => true do |t|
