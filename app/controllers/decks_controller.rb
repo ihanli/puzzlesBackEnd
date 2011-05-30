@@ -26,7 +26,7 @@ class DecksController < ApplicationController
   end
 
   def update
-    render :status => 418 unless @deck.change_state
+    head 418 unless @deck.change_state
   end
 
   def destroy

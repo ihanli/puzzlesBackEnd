@@ -1,5 +1,5 @@
 class BattlesController < ApplicationController
-  before_filter :find_battle, :only => [:show, :destroy]
+  before_filter :find_battle, :only => [:show, :destroy, :update]
 
   #TODO: implement actions to switch between states
 
@@ -14,7 +14,6 @@ class BattlesController < ApplicationController
   end
 
   def show
-    #front end should start/continue battle if show action is called
     respond_to do |format|
       format.xml
       format.html
@@ -22,17 +21,20 @@ class BattlesController < ApplicationController
   end
 
   def create
-    @battle = Battle.new(params[:battle])
+    battle = Battle.new(params[:battle])
+    redirect_to :controller => "fighters", :action => "create", :fighter => params[:fighter] if battle.save
+    head 500
+  end
 
-    if @battle.save
-      redirect_to battle_path(@battle.id)
-    end
+  def update
+    head 500 unless @battle.pending?
+
+    @battle.start!
+    redirect_to :controller => "fighters", :action => "create", :fighter => params[:fighter]
   end
 
   def destroy
-    if @battle.destroy
-      redirect_to battles_path
-    end
+    redirect_to battles_path if @battle.destroy
   end
 
   protected

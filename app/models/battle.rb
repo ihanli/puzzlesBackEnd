@@ -1,10 +1,15 @@
 class Battle < ActiveRecord::Base
-  acts_as_state_machine :initial => :opened
+  acts_as_state_machine :initial => :pending
+  state :pending
   state :opened
   state :drawing
   state :placing
   state :attacking
   state :finished
+  
+  event :start do
+    transitions :from => :pending, to => :opened
+  end
 
   event :draw do
     transitions :from => :opened, :to => :drawing

@@ -1,6 +1,14 @@
 class CardInGamesController < ApplicationController
+  def create
+  end
+
   def update
     card = CardInGame.find_by_id(params[:id])
-    render :status => 418 unless card.transition_to(params[:event])
+
+    if card.transition_to(params[:event])
+      head 200
+    else
+      head 418
+    end
   end
 end
