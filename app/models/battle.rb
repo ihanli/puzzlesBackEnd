@@ -8,7 +8,7 @@ class Battle < ActiveRecord::Base
   state :finished
   
   event :start do
-    transitions :from => :pending, to => :opened
+    transitions :from => :pending, :to => :opened
   end
 
   event :draw do
