@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :prepare_session, :only => [:show, :destroy]
   before_filter :find_user, :only => [:show, :destroy]
 
   def show
@@ -9,13 +10,25 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(params[:user])
-    redirect_to user_path(user.id) if user.save
-    head 500
+    if user.save
+      redirect_to user_path(user.id)
+    else
+      head 500
+    end
   end
 
   def destroy
-    redirect_to users_path if @user.destroy
-    head 500
+    if @user.destroy
+      redirect_to users_path
+    else
+      head 500
+    end
+  end
+  
+  def register_and_login
+    User.find_or_create_by_fb_id(params[:id])
+    session[:fbid] = params[:id]
+    head 200
   end
 
   protected

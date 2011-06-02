@@ -22,15 +22,18 @@ class BattlesController < ApplicationController
 
   def create
     battle = Battle.new(params[:battle])
-    redirect_to :controller => "fighters", :action => "create", :fighter => params[:fighter] if battle.save
-    head 500
+    if battle.save
+      redirect_to :controller => "fighters", :action => "create", :fighter => params[:fighter]
+    else
+      head 500
+    end
   end
 
   def update
     head 500 unless @battle.pending?
 
     @battle.start!
-    redirect_to :controller => "fighters", :action => "create", :fighter => params[:fighter]
+    redirect_to :controller => "fighter", :action => "create", :fighter => params[:fighter]
   end
 
   def destroy

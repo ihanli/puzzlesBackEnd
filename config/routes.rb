@@ -2,9 +2,11 @@ PuzzlesBackEnd::Application.routes.draw do
   post "/" => redirect("/")
 
   resources :decks
-  resources :users
+  resources :fighters  
   resources :battles
   resources :card_in_games
+  resources :users
+  post "users/register_and_login"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
