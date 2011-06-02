@@ -1,14 +1,15 @@
 class FightersController < ApplicationController
+#  TODO: refactor me!
   def create
     fighter = Fighter.new(params[:fighter])
-      
+
     if fighter.save
       fighters = Fighter.find_all_by_battle_id(fighter.battle_id)
 
       if fighters.count == 2
         fighters.each do |fighter|
           cards = Card.find_cards_by_user(fighter.user.id)
-          
+
           cards.each do |card|
             CardInGame.new({ :fighter_id => fighter.id, :card_id => card.id, :attack => card.attack, :health => card.health }).save
           end

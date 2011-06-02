@@ -157,8 +157,6 @@ class CardInGameTest < ActiveSupport::TestCase
     test_card_in_game = CardInGame.create(CardInGame.plan)
 
     assert_equal test_card_in_game.class_name, test_abstract_card.unit.class.name
-    assert_equal test_card_in_game.attack, test_abstract_card.unit.attack
-    assert_equal test_card_in_game.health, test_abstract_card.unit.health
     assert_nil test_card_in_game.duration
   end
 

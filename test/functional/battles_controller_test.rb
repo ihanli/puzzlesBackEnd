@@ -20,7 +20,7 @@ class BattlesControllerTest < ActionController::TestCase
   
   context "create" do
     setup do
-      post :create, :battle => Battle.plan
+      post :create, :battle => Battle.plan, :fighter => Fighter.plan
     end
 
     should respond_with(:redirect)

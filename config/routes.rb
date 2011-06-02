@@ -2,7 +2,7 @@ PuzzlesBackEnd::Application.routes.draw do
   post "/" => redirect("/")
 
   resources :decks
-  resources :fighters  
+  resources :fighters
   resources :battles
   resources :card_in_games
   resources :users

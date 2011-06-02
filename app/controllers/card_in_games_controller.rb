@@ -1,6 +1,6 @@
 class CardInGamesController < ApplicationController
   before_filter :prepare_session
-  
+
   def create
   end
 

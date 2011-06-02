@@ -6,7 +6,7 @@ class BattlesController < ApplicationController
   def index
     #TODO: give id of logged in user as parameter
 
-    @battles = Battle.get_battles_by_user(params[:user_id])
+    @battles = Battle.get_battles_by_user(params[:fb_id])
 
     respond_to do |format|
       format.xml

@@ -111,15 +111,6 @@ class CardInGame < ActiveRecord::Base
     card.mana
   end
 
-#  TODO: remove tests for attack and health
-#  def attack
-#    card.attack
-#  end
-#
-#  def health
-#    card.health
-#  end
-
   def duration
     card.duration
   end

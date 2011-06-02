@@ -6,7 +6,7 @@ class Battle < ActiveRecord::Base
   state :placing
   state :attacking
   state :finished
-  
+
   event :start do
     transitions :from => :pending, :to => :opened
   end
@@ -37,7 +37,7 @@ class Battle < ActiveRecord::Base
   has_many :fighters, :dependent => :delete_all
   has_many :users, :through => :fighters
 
-  def self.get_battles_by_user(user_id)
-    self.find(:all, :include => :users, :conditions => ['users.id = ?', user_id])
+  def self.get_battles_by_user(fb_id)
+    self.find(:all, :include => :users, :conditions => ['users.fb_id = ?', fb_id])
   end
 end

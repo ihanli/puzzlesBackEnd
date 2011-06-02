@@ -4,7 +4,7 @@ class BattleTest < ActiveSupport::TestCase
   should "validate object and state after creation" do
     test_battle = Battle.create
     assert_valid test_battle
-    assert test_battle.opened?
+    assert test_battle.pending?
   end
 
   context "state machine event =>" do
