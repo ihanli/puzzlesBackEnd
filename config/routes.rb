@@ -4,6 +4,7 @@ PuzzlesBackEnd::Application.routes.draw do
   resources :decks
   resources :users
   resources :battles
+  resources :card_in_games
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -6,7 +6,7 @@ xml.Battle(:id => @battle.id){
       xml.fb_id(fighter.fbid)
 
       xml.Deck{
-        xml << render(:partial => 'layouts/card_struct', :locals => { :cards => fighter.card_in_games.select { |c| c.ready_to_play? } })
+        xml << render(:partial => 'layouts/card_struct', :locals => { :cards => fighter.card_in_games.select { |c| c.ready? } })
       }
 
       xml.Hand{
