@@ -44,7 +44,7 @@ end
 
 Card.blueprint do
 	puzzles { 3 }
-	abstract_card_id { 24 }
+	abstract_card_id { 1 }
 	user_id { 1 }
 end
 

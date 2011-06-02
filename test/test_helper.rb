@@ -15,3 +15,9 @@ require 'capybara/rails'
 class ActionDispatch::IntegrationTest
  include Capybara
 end
+
+require 'matchers'
+
+def transition_from_through(from, event)
+  TransitionFromThroughMatcher.new(from, event)
+end

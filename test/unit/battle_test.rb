@@ -6,86 +6,54 @@ class BattleTest < ActiveSupport::TestCase
     assert_valid test_battle
     assert test_battle.opened?
   end
-  
-  should "test drawing right after start of battle" do
-    test_battle = Battle.create
-    test_battle.draw!
-    assert test_battle.drawing?
-  end
-  
-  should "test draw event after attack" do
-    test_battle = Battle.create
-    test_battle.state = "attacking"
-    assert test_battle.attacking?
-    test_battle.draw!
-    assert test_battle.drawing?
-  end
 
-  should "test draw event after card was placed" do
-    test_battle = Battle.create
-    test_battle.state = "placing"
-    assert test_battle.placing?
-    test_battle.draw!
-    assert test_battle.drawing?
-  end
-  
-  should "test regular placing" do
-    test_battle = Battle.create
-    test_battle.place!
-    assert test_battle.placing?
-  end
-  
-  should "test placing drawn card" do
-    test_battle = Battle.create
-    test_battle.state = "drawing"
-    assert test_battle.drawing?
-    test_battle.place!
-    assert test_battle.placing?
-  end
-  
-  should "test if attack phase is entered without placing cards" do
-    test_battle = Battle.create
-    test_battle.state = "drawing"
-    assert test_battle.drawing?
-    test_battle.attack!
-    assert test_battle.attacking?
-  end
-  
-  should "test attack event after card was placed" do
-    test_battle = Battle.create
-    test_battle.state = "placing"
-    assert test_battle.placing?
-    test_battle.attack!
-    assert test_battle.attacking?
-  end
-  
-  should "test if battle is finished after first turn" do
-    test_battle = Battle.create
-    test_battle.finish!
-    assert test_battle.finished?
-  end
-  
-  should "test if battle is finished after card was drawn" do
-    test_battle = Battle.create
-    test_battle.state = "drawing"
-    assert test_battle.drawing?
-    test_battle.finish!
-    assert test_battle.finished?
-  end
-  
-  should "test if battle is finished after card was placed" do
-    test_battle = Battle.create
-    test_battle.state = "placing"
-    assert test_battle.placing?
-    test_battle.finish!
-    assert test_battle.finished?
-  end
-  
-  should "test if battle is finished after attack phase" do
-    test_battle = Battle.create
-    test_battle.state = "attacking"
-    assert test_battle.attacking?
-    test_battle.finish!
-    assert test_battle.finished?
+  context "state machine event =>" do
+    setup do
+      subject { Battle.create(Battle.plan) }
+    end
+
+    context "drawing right after start of battle" do
+      should transition_from_through("opened", "draw")
+    end
+
+    context "draw event after attack" do
+      should transition_from_through("attacking", "draw")
+    end
+
+    context "draw event after card was placed" do
+      should transition_from_through("placing", "draw")
+    end
+
+    context "regular placing" do
+      should transition_from_through("opened", "place")
+    end
+
+    context "placing drawn card" do
+      should transition_from_through("drawing", "place")
+    end
+
+    context "enter attack phase without placing cards" do
+      should transition_from_through("drawing", "attack")
+    end
+
+    context "attack after card was placed" do
+      should transition_from_through("placing", "attack")
+    end
+
+    context "finish battle after first turn" do
+      should transition_from_through("opened", "finish")
+    end
+
+    context "finish battle after card was drawn" do
+      should transition_from_through("drawing", "finish")
+    end
+
+    context "finish battle after card was placed" do
+      should transition_from_through("placing", "finish")
+    end
+
+    context "finish battle after attack phase" do
+      should transition_from_through("attacking", "finish")
+    end
   end
 end

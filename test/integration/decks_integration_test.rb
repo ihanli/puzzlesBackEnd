@@ -11,5 +11,7 @@ class DecksIntegrationTest < ActionDispatch::IntegrationTest
     Deck.make(Deck.plan)
     visit deck_path(1)
     assert respond_with(:success)
+#    get deck_path(1)
+#    doc = Nokogiri::XML(@response.body)
   end
 end

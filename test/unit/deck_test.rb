@@ -17,4 +17,18 @@ class DeckTest < ActiveSupport::TestCase
     decks = Deck.get_decks_by_user(user.id)
     assert_equal deck, decks.first
   end
+
+  context "state machine event =>" do
+    setup do
+      subject { Deck.create(Deck.plan) }
+    end
+
+    context "use deck in fight" do
+      should transition_from_through("free", "occupy")
+    end
+
+    context "free deck" do
+      should transition_from_through("occupied", "free")
+    end
+  end
 end
