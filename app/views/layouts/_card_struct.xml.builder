@@ -2,6 +2,7 @@ cards.each do |card|
   xml.Card{
     xml.id(card.id)
     xml.type(card.class_name)
+    xml.targetID(card.target_id)
     xml.targetType(card.target_type)
     xml.name(card.name)
     xml.loading(card.loading)
@@ -10,7 +11,7 @@ cards.each do |card|
     xml.talent(card.talent)
     xml.mana(card.mana)
 
-    xml.state(card.state) if card.inactive? || card.attacking?
+   xml.state(card.state) if card.inactive? || card.attacking?
 
     if card.class_name == 'Unit'
       xml.attack(card.attack)
