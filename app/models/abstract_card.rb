@@ -9,7 +9,7 @@ class AbstractCard < ActiveRecord::Base
   validates_size_of :path_to_img, :minimum => 5
   validates_numericality_of :mana, :only_integer => true, :greater_than_or_equal_to => 0
   validates_numericality_of :loading, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 6
-  validates_format_of :path_to_img, :with => /^.+\.((jpg)|(gif)|(jpeg)|(png))$/
+  validates_format_of :path_to_img, :with => /\A.+\.((jpg)|(gif)|(jpeg)|(png))\z/
 
   #TODO: validation for talent semantic
 end
