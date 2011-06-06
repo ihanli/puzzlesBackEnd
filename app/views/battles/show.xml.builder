@@ -9,9 +9,11 @@ xml.Battle(:id => @battle.id){
         xml << render(:partial => 'layouts/card_struct', :locals => { :cards => fighter.card_in_games.select { |c| c.ready? } })
       }
 
-      xml.Hand{
-        xml << render(:partial => 'layouts/card_struct', :locals => { :cards => fighter.card_in_games.select { |c| c.drawn? } })
-      }
+	  if fighter.fbid == session[:fbid]
+        xml.Hand{
+          xml << render(:partial => 'layouts/card_struct', :locals => { :cards => fighter.card_in_games.select { |c| c.drawn? } })
+        }
+	  end
 
       xml.Units{
         xml << render(:partial => 'layouts/card_struct', :locals => { :cards => fighter.card_in_games.select { |c| c.summoned? || c.inactive? || c.attacking? } })

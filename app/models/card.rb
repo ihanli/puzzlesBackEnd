@@ -9,12 +9,12 @@ class Card < ActiveRecord::Base
   validates_associated :user, :abstract_card
 
   def self.get_cards_by_user(user_id)
-    self.find(:all, :conditions => ['user_id = ?', user_id])
+    self.find_all_by_user_id(user_id)
   end
 
   #TODO: test me from here
   def class_name
-    abstract_card.unit ? abstract_card.unit.class.name : abstract_card.spell.class.name
+    abstract_card.unit ? abstract_card.unit.class.name : (abstract_card.spell.upgrade ? "Upgrade" : abstract_card.spell.class.name)
   end
 
   def target_type

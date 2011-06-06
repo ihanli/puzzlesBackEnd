@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110602131102) do
+ActiveRecord::Schema.define(:version => 20110606094203) do
 
   create_table "abstract_cards", :force => true do |t|
     t.string   "description"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(:version => 20110602131102) do
   create_table "card_in_games", :force => true do |t|
     t.integer  "fighter_id"
     t.integer  "card_id"
-    t.string   "state"
+    t.string   "state",      :default => "ready"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "target_id"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20110602131102) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "category"
+    t.boolean  "upgrade",          :default => false
   end
 
   add_index "spells", ["abstract_card_id"], :name => "index_spells_on_abstract_card_id"
