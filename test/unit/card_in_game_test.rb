@@ -4,7 +4,7 @@ class CardInGameTest < ActiveSupport::TestCase
   should "validate object and state after creation" do
     test_card_in_game = CardInGame.create(CardInGame.plan)
     assert_valid test_card_in_game
-    assert test_card_in_game.removed?
+    assert test_card_in_game.ready?
   end
 
   context "state machine event =>" do
@@ -99,39 +99,39 @@ class CardInGameTest < ActiveSupport::TestCase
     context "destroy attacking unit" do
       should transition_from_through("attacking", "destroy")
     end
-
-    context "take card from deck out of game" do
-      should transition_from_through("ready", "remove")
-    end
-
-    context "take drawn card out of game" do
-      should transition_from_through("drawn", "remove")
-    end
-
-    context "take summoned unit out of game" do
-      should transition_from_through("summoned", "remove")
-    end
-
-    context "take inactive unit out of game" do
-      should transition_from_through("inactive", "remove")
-    end
-
-    context "take casted spell out of game" do
-      should transition_from_through("casted", "remove")
-    end
-
-    context "take attacking unit out of game" do
-      should transition_from_through("attacking", "remove")
-    end
-
-    context "take card from cemetery out of game" do
-      should transition_from_through("destroyed", "remove")
-    end
+#    FIXME: write alternative test for tests of 'finished' state
+#    context "take card from deck out of game" do
+#      should transition_from_through("ready", "remove")
+#    end
+#
+#    context "take drawn card out of game" do
+#      should transition_from_through("drawn", "remove")
+#    end
+#
+#    context "take summoned unit out of game" do
+#      should transition_from_through("summoned", "remove")
+#    end
+#
+#    context "take inactive unit out of game" do
+#      should transition_from_through("inactive", "remove")
+#    end
+#
+#    context "take casted spell out of game" do
+#      should transition_from_through("casted", "remove")
+#    end
+#
+#    context "take attacking unit out of game" do
+#      should transition_from_through("attacking", "remove")
+#    end
+#
+#    context "take card from cemetery out of game" do
+#      should transition_from_through("destroyed", "remove")
+#    end
   end
 
   should "change to given state" do
     test_card_in_game = CardInGame.create(CardInGame.plan)
-    assert test_card_in_game.transition_to("get_ready")
+    assert test_card_in_game.transition_to("draw")
     assert !test_card_in_game.transition_to("activate")
     assert !test_card_in_game.transition_to("not_be_awesome")
   end

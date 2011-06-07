@@ -4,7 +4,7 @@ require 'nokogiri'
 class BattlesControllerTest < ActionController::TestCase
   should "get :index" do
     @request.env["HTTP_ACCEPT"] = "application/xml"
-    get :index
+    get :index, nil, { :fbid => 2655 }
     assert_response :success
   end
   
@@ -12,7 +12,7 @@ class BattlesControllerTest < ActionController::TestCase
     setup do
       Battle.create(Battle.plan)
       @request.env["HTTP_ACCEPT"] = "application/xml"
-      get :show, :id => 1
+      get :show, { :id => 1 }, { :fbid => 2655 }
     end
     
     should respond_with(:success)
@@ -20,7 +20,7 @@ class BattlesControllerTest < ActionController::TestCase
   
   context "create" do
     setup do
-      post :create, :battle => Battle.plan, :fighter => Fighter.plan
+      post :create, { :battle => Battle.plan, :fighter => Fighter.plan }, { :fbid => 2655 }
     end
 
     should respond_with(:redirect)
@@ -33,7 +33,7 @@ class BattlesControllerTest < ActionController::TestCase
   context "destroy" do
     setup do
       Battle.create(Battle.plan)
-      delete :destroy, :id => 1
+      delete :destroy, { :id => 1 }, { :fbid => 2655 }
     end
     
     should respond_with(:redirect)

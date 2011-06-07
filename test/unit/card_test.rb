@@ -15,11 +15,4 @@ class CardTest < ActiveSupport::TestCase
     test_card = Card.create(Card.plan)
     assert_valid test_card
   end
-  
-  should "get cards by user" do
-    card = Card.create(Card.plan)
-    user = User.create(User.plan)
-    cards = Card.get_cards_by_user(user.id)
-    assert_equal card, cards.first
-  end
 end

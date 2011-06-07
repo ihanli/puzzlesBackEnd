@@ -14,7 +14,7 @@ class DeckTest < ActiveSupport::TestCase
     Card.create(Card.plan)
     deck.cards = Card.find(:all)
     user = User.create(User.plan)
-    decks = Deck.get_decks_by_user(user.id)
+    decks = Deck.find_decks_by_user(user.id)
     assert_equal deck, decks.first
   end
 

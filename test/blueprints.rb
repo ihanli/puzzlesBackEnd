@@ -36,6 +36,7 @@ end
 Fighter.blueprint do
   battle_id { 1 }
   user_id { 1 }
+  deck_id { 1 }
 end
 
 Battle.blueprint do

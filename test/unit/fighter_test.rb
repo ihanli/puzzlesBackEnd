@@ -18,10 +18,22 @@ class FighterTest < ActiveSupport::TestCase
     test_fighter = Fighter.create(Fighter.plan)
     assert test_fighter.ready?
   end
+  
+  should "recover mana" do
+    test_fighter_one = Fighter.create(Fighter.plan)
+    Fighter.create(Fighter.plan)
+    test_battle = Battle.create(Battle.plan)
+    test_fighter_one.battle = test_battle
+    test_battle.start!
+    test_fighter_one.proceed!
+    assert_equal 9, test_fighter_one.mana
+  end
 
   context "state machine event =>" do
     setup do
       subject { Fighter.create(Fighter.plan) }
+      Fighter.create(Fighter.plan)
+      subject.battle = Battle.create(Battle.plan)
     end
 
     context "proceeds at beginning" do
