@@ -29,8 +29,8 @@ class FightersController < ApplicationController
   end
 
   def update
-    if params[:fb_id]
-      fighter = Fighter.find_by_fbid(params[:fb_id])
+    if params[:fighter]
+      fighter = Fighter.find_by_id(params[:id])
       update_flag = fighter.update_attributes(params[:fighter])
     end
 
@@ -39,9 +39,9 @@ class FightersController < ApplicationController
       toggle_flag = fighters.toggle_state
     end
 
-    if (params[:fb_id] and !params[:battle_id]) or (!params[:fb_id] and params[:battle_id])
+    if(params[:fighter] and !params[:battle_id]) or (!params[:fighter] and params[:battle_id])
       head 200 if update_flag or toggle_flag
-    elsif params[:battle_id] and params[:fb_id]
+    elsif params[:battle_id] and params[:fighter]
       head 200 if update_flag and toggle_flag
     else
       head 500
