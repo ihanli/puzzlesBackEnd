@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :prepare_session, :only => [:show, :destroy]
+  skip_filter :prepare_session, :except => [:show, :destroy]
   before_filter :find_user, :only => [:show, :destroy]
 
   def show

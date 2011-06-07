@@ -18,7 +18,7 @@ class Deck < ActiveRecord::Base
   validates_associated :cards
   validates_size_of :name, :minimum => 1
 
-  def self.get_decks_by_user(user_id)
+  def self.find_decks_by_user(user_id)
     self.find(:all, :include => :cards, :conditions => ['cards.user_id = ?', user_id])
   end
 
@@ -31,7 +31,6 @@ class Deck < ActiveRecord::Base
       self.occupy!
     end
 
-    return false unless tmp_state != deck.state
-    true
+    tmp_state != deck.state
   end
 end

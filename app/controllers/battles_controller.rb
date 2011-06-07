@@ -1,12 +1,10 @@
 class BattlesController < ApplicationController
+
+  before_filter :login_required
   before_filter :find_battle, :only => [:show, :destroy, :update]
 
-  #TODO: implement actions to switch between states
-
   def index
-    #TODO: give id of logged in user as parameter
-
-    @battles = Battle.get_battles_by_user(params[:fb_id])
+    @battles = Battle.get_battles_by_user(session[:fbid])
 
     respond_to do |format|
       format.xml
@@ -40,7 +38,7 @@ class BattlesController < ApplicationController
     redirect_to battles_path if @battle.destroy
   end
 
-  protected
+  private
   def find_battle
     @battle = Battle.find_by_id(params[:id])
   end

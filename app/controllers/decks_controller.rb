@@ -2,9 +2,7 @@ class DecksController < ApplicationController
   before_filter :find_deck, :only => [:show, :destroy]
 
   def index
-    #TODO: give id of logged in user as parameter
-
-    @decks = Deck.get_decks_by_user(params[:user_id])
+    @decks = Deck.find_decks_by_user(session[:fbid])
 
     respond_to do |format|
       format.xml
@@ -19,10 +17,7 @@ class DecksController < ApplicationController
 
   def create
     @deck = Deck.new(params[:deck])
-
-    if @deck.save
-      redirect_to deck_path(@deck.id)
-    end
+    redirect_to deck_path(@deck.id) if @deck.save
   end
 
   def update
@@ -30,9 +25,7 @@ class DecksController < ApplicationController
   end
 
   def destroy
-    if @deck.destroy
-      redirect_to decks_path
-    end
+    redirect_to decks_path if @deck.destroy
   end
 
   protected

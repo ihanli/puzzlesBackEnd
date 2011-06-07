@@ -1,15 +1,33 @@
 class Fighter < ActiveRecord::Base
   acts_as_state_machine :initial => :ready
   state :ready
-  state :proceeding
+  state :proceeding, :enter => :increase_mana
   state :waiting
-  state :finished
+  state :finished, :enter => :clean_up
 
   private
   @@white_list = ["proceed", "wait", "finish"]
 
-#  def toggle_state
-#  end
+  def increase_mana
+    tmp = mana
+    write_attribute(:mana, mana + 4) if battle.opened?
+    mana == tmp + 4
+  end
+
+# TODO: test me, add xp to user
+  def clean_up
+    battle.destroy
+#    fighters = self.find_all_by_battle_id(battle.id)
+#    fighters.first.battle.destroy
+#
+#    fighters.each do |fighter|
+#      fighter.card_in_games.each do |card|
+#        card.destroy
+#      end
+#
+#      fighter.destroy
+#    end
+  end
 
   public
 
@@ -28,8 +46,9 @@ class Fighter < ActiveRecord::Base
     transitions :from => :proceeding, :to => :finished
   end
 
+  attr_accessible :mana, :health
+
   belongs_to :user
-  #TODO: dependent => test me
   belongs_to :battle, :dependent => :delete
   belongs_to :deck
   has_many :card_in_games, :dependent => :delete_all
@@ -40,8 +59,8 @@ class Fighter < ActiveRecord::Base
   validates_numericality_of :mana, :only_integer => true, :greater_than_or_equal_to => 0
   validates_numericality_of :health, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 26
 
-  def self.get_fighters_by_battle(battle_id)
-    self.find(:all, :conditions => ['battle_id = ?', battle_id])
+  def self.find_by_fbid(fb_id)
+    self.includes(:user).find_by_fb_id(fb_id)
   end
 
   #TODO: test me from here
@@ -64,14 +83,13 @@ class Fighter < ActiveRecord::Base
 #    false
 #  end
 
-  def transition_to(event)
+  def toggle_state
     self.each do |fighter|
       tmp_state = fighter.state
 
       case event
       when "proceed" || "wait"
-      #TODO: give id of logged in user as parameter
-      if fighter.fbid == params[:user_id]
+      if fighter.fbid == session[:fbid]
         fighter.wait!
       else
         fighter.proceed!
@@ -80,9 +98,7 @@ class Fighter < ActiveRecord::Base
         fighter.finish!
       end
 
-      return false unless tmp_state != fighter.state
+      tmp_state != fighter.state
     end
-
-    true
   end
 end

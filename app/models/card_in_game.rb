@@ -1,5 +1,5 @@
 class CardInGame < ActiveRecord::Base
-  acts_as_state_machine :initial => :removed
+  acts_as_state_machine :initial => :ready
   state :ready
   state :drawn
   state :summoned
@@ -7,12 +7,32 @@ class CardInGame < ActiveRecord::Base
   state :casted
   state :attacking
   state :destroyed
-  state :removed
+  state :removed, :enter => :clean_up
 
   private
   @@white_list = ["get_ready", "draw", "summon", "activate", "deactive", "place_unit", "cast", "attack", "destroy", "remove"]
-  public
+  @@talent_list = ["attack", "health", "summon", "destroy", "deactivate"]
 
+  # TODO: test me
+  def clean_up
+    destroy
+  end
+
+  def use_talent
+    target_card = CardInGame.find_by_id(target_id)
+
+    @@talent_list.each do |word|
+      if talent.include?(word)
+        if word == @@talent_list[0] or word == @@talent_list[1]
+          target_card.update_attributes(word.to_sym => target_card.send(word) + talent[/[-+]{1}[1-9]/].to_i)
+        else
+          target_card.send(word + "!")
+        end
+      end
+    end
+  end
+
+  public
   event :get_ready do
     transitions :from => :removed, :to => :ready
     transitions :from => :destroyed, :to => :ready
@@ -60,6 +80,7 @@ class CardInGame < ActiveRecord::Base
     transitions :from => :summoned, :to => :destroyed
     transitions :from => :casted, :to => :destroyed
     transitions :from => :attacking, :to => :destroyed
+    transitions :from => :inactive, :to => :destroyed
   end
 
   event :remove do

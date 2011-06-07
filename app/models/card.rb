@@ -8,9 +8,9 @@ class Card < ActiveRecord::Base
   validates_numericality_of :puzzles, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 7
   validates_associated :user, :abstract_card
 
-  def self.get_cards_by_user(user_id)
-    self.find_all_by_user_id(user_id)
-  end
+#  def self.get_cards_by_user(user_id)
+#    self.find_all_by_user_id(user_id)
+#  end
 
   #TODO: test me from here
   def class_name
