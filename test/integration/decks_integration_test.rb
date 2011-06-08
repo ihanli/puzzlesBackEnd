@@ -8,10 +8,9 @@ class DecksIntegrationTest < ActionDispatch::IntegrationTest
   end
   
   should "show a single deck" do
-    Deck.make(Deck.plan)
-    visit deck_path(1)
+    Deck.create(Deck.plan)
+    visit battle_path(1)
     assert respond_with(:success)
-#    get deck_path(1)
 #    doc = Nokogiri::XML(@response.body)
   end
 end
