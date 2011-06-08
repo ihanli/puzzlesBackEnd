@@ -8,6 +8,12 @@ class CardInGamesController < ApplicationController
       else
         head 418
       end
+    elsif params[:target]
+      if @card.update_attributes(params[:target])
+        head 200
+      else
+        head 500
+      end
     else
       @card.use_talent
       
