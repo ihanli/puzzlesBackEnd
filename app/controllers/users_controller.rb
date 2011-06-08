@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_filter :login_required
+ # skip_filter :login_required
   before_filter :prepare_session, :except => [:show, :destroy]
   before_filter :find_user, :only => [:show, :destroy]
 

@@ -1,11 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :login_required
+#  before_filter :login_required
 
   MAX_SESSION_TIME = 600
 
-  protected
   def login_required
     unless session[:fbid]
       head 401
@@ -15,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def prepare_session
-     if !session[:expiry_time].nil? and session[:expiry_time] < Time.now
+     if !session[:expiry_time].nil? and session[:expiry_time] < Time.now.utc
         reset_session
      end
 

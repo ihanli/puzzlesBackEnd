@@ -1,4 +1,5 @@
 class FightersController < ApplicationController
+  before_filter :prepare_session
   def create
     fighter = Fighter.new(params[:fighter])
 
