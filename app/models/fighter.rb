@@ -14,19 +14,8 @@ class Fighter < ActiveRecord::Base
     mana == tmp + 4
   end
 
-# TODO: test me, add xp to user
   def clean_up
     battle.destroy
-#    fighters = self.find_all_by_battle_id(battle.id)
-#    fighters.first.battle.destroy
-#
-#    fighters.each do |fighter|
-#      fighter.card_in_games.each do |card|
-#        card.destroy
-#      end
-#
-#      fighter.destroy
-#    end
   end
 
   public
