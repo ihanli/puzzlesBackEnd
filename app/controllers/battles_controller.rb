@@ -1,7 +1,7 @@
 class BattlesController < ApplicationController
 
   before_filter :login_required
-  before_filter :find_battle, :only => [:show, :destroy, :update]
+  before_filter :find_battle, :only => [:show, :destroy]
 
   def index
     @battles = Battle.get_battles_by_user(session[:fbid])
@@ -28,10 +28,13 @@ class BattlesController < ApplicationController
   end
 
   def update
-    head 500 unless @battle.pending?
+    battle = Battle.find_by_rid(params[:rid])
 
-    @battle.start!
-    redirect_to :controller => "fighter", :action => "create", :fighter => params[:fighter]
+    head 500 unless battle.pending?
+
+    battle.start!
+    user = User.find_by_fb_id(params[:fbid])
+    redirect_to :controller => "fighter", :action => "create", :fighter => { :user_id => user.id, :battle_id => battle.id, :deck_id => Deck.find_decks_by_user(user.id).first }
   end
 
   def destroy
