@@ -3,7 +3,7 @@ require 'test_helper'
 class DecksControllerTest < ActionController::TestCase
   should "get :index" do
     @request.env["HTTP_ACCEPT"] = "application/xml"
-    get :index
+    get :index, nil, { :fbid => 2655 }
     assert_response :success
   end
     
@@ -11,15 +11,14 @@ class DecksControllerTest < ActionController::TestCase
     setup do
       Deck.create(Deck.plan)
       @request.env["HTTP_ACCEPT"] = "application/xml"
-      get :show, :id => 1
+      get :show, { :id => 1 }, { :fbid => 2655 }
     end
-    
     should respond_with(:success)
   end
   
   context "create" do
     setup do
-      post :create, :deck => Deck.plan
+      post :create, { :deck => Deck.plan }, { :fbid => 2655 }
     end
 
     should respond_with(:redirect)
@@ -32,7 +31,7 @@ class DecksControllerTest < ActionController::TestCase
   context "destroy" do
     setup do
       Deck.create(Deck.plan)
-      delete :destroy, :id => 1
+      delete :destroy, { :id => 1 }, { :fbid => 2655 }
     end
     
     should respond_with(:redirect)
