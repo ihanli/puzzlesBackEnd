@@ -19,9 +19,10 @@ class BattlesController < ApplicationController
   end
 
   def create
-    battle = Battle.new(params[:battle])
+    battle = Battle.new(:rid => params[:rid])
     if battle.save
-      redirect_to :controller => "fighters", :action => "create", :fighter => params[:fighter]
+      user = User.find_by_fb_id(params[:fbid])
+      redirect_to :controller => "fighter", :action => "create", :fighter => { :user_id => user.id, :battle_id => battle.id, :deck_id => Deck.find_decks_by_user(user.id).first }
     else
       head 500
     end
