@@ -20,7 +20,7 @@ class BattlesController < ApplicationController
   def create
     battle = Battle.new(:rid => params[:rid])
     if battle.save
-      user = User.find_by_fb_id(params[:fbid])
+      user = User.find_by_fb_id(params[:fbid].to_i)
       redirect_to :controller => "fighter", :action => "create", :fighter => { :user_id => user.id, :battle_id => battle.id, :deck_id => Deck.find_decks_by_user(user.id).first }
     else
       head 500
@@ -33,7 +33,7 @@ class BattlesController < ApplicationController
     head 500 unless battle.pending?
 
     battle.start!
-    user = User.find_by_fb_id(params[:fbid])
+    user = User.find_by_fb_id(params[:fbid].to_i)
     redirect_to :controller => "fighter", :action => "create", :fighter => { :user_id => user.id, :battle_id => battle.id, :deck_id => Deck.find_decks_by_user(user.id).first }
   end
 
