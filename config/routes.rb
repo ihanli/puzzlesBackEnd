@@ -1,5 +1,5 @@
 PuzzlesBackEnd::Application.routes.draw do
-  post "/" => redirect("/")
+  post "/bin-debug/" => redirect("/bin-debug/index.htm")
   get "/bin-debug/index.htm?debug=true" => redirect("/bin-debug/index.htm?debug=true")
   get "/bin-debug/FacebookUserStatusWeb.swf" => redirect("/bin-debug/FacebookUserStatusWeb.swf")
 
