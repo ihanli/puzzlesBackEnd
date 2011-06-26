@@ -26,6 +26,8 @@ class BattlesController < ApplicationController
     else
       head 500
     end
+    
+    head 200
   end
 
   def update
