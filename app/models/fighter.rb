@@ -35,7 +35,7 @@ class Fighter < ActiveRecord::Base
     transitions :from => :proceeding, :to => :finished
   end
 
-  attr_accessible :mana, :health
+  attr_accessible :mana, :health, :user_id, :battle_id
 
   belongs_to :user
   belongs_to :battle, :dependent => :delete
