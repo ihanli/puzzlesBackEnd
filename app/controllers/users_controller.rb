@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(params[:user].to_i)
+    user = User.new(params[:user])
     if user.save
       redirect_to user_path(user.id)
     else
@@ -27,8 +27,8 @@ class UsersController < ApplicationController
   end
 
   def register_and_login
-    User.find_or_create_by_fb_id(params[:id].to_i)
-    session[:fbid] = params[:id].to_i
+    User.find_or_create_by_fb_id(params[:id])
+    session[:fbid] = params[:id]
     session[:expiry_time] = MAX_SESSION_TIME.seconds.from_now
     head 200
   end
