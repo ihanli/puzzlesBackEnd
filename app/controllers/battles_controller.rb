@@ -20,6 +20,7 @@ class BattlesController < ApplicationController
   def create
     battle = Battle.new(:rid => params[:rid])
     if battle.save
+      battle = Battle.find_by_rid(params[:rid])
       user = User.find_by_fb_id(params[:fbid])
       fighter = Fighter.new(:user_id => user.id, :battle_id => battle.id, :deck_id => Deck.find_decks_by_user(user.id).first)
       head 500 unless fighter.save
