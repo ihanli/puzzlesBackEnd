@@ -21,7 +21,8 @@ class BattlesController < ApplicationController
     battle = Battle.new(:rid => params[:rid])
     if battle.save
       user = User.find_by_fb_id(params[:fbid])
-      redirect_to :controller => "fighter", :action => "create", :fighter => { :user_id => user.id, :battle_id => battle.id, :deck_id => Deck.find_decks_by_user(user.id).first }
+      fighter = Fighter.new(:user_id => user.id, :battle_id => battle.id, :deck_id => Deck.find_decks_by_user(user.id).first)
+      head 500 unless fighter.save
     else
       head 500
     end
@@ -34,7 +35,8 @@ class BattlesController < ApplicationController
 
     battle.start!
     user = User.find_by_fb_id(params[:fbid])
-    redirect_to :controller => "fighter", :action => "create", :fighter => { :user_id => user.id, :battle_id => battle.id, :deck_id => Deck.find_decks_by_user(user.id).first }
+    fighter = Fighter.new(:user_id => user.id, :battle_id => battle.id, :deck_id => Deck.find_decks_by_user(user.id).first)
+    head 500 unless fighter.save
   end
 
   def destroy

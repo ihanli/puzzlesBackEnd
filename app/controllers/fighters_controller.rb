@@ -1,20 +1,5 @@
 class FightersController < ApplicationController
   before_filter :prepare_session
-  def create
-    fighter = Fighter.new(params[:fighter])
-
-    if fighter.save
-      fighters = Fighter.find_all_by_battle_id(fighter.battle_id)
-
-      if fighters.count > 2
-        head 500
-      else
-        redirect_to battle_path(fighter.battle_id)
-      end
-    else
-      head 500
-    end
-  end
 
   def update
     if params[:fighter]
