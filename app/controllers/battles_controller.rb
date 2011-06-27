@@ -1,6 +1,6 @@
 class BattlesController < ApplicationController
  # before_filter :login_required
-  before_filter :find_battle, :only => [:show, :destroy]
+  before_filter :find_battle, :only => [:show]
 
   def index
     @battles = Battle.get_battles_by_user(session[:fbid])
@@ -44,7 +44,9 @@ class BattlesController < ApplicationController
   end
 
   def destroy
-    redirect_to battles_path if @battle.destroy
+    battle = Battle.find_by_rid(params[:rid])
+    head 500 unless battle.delete
+    head 200
   end
 
   private
