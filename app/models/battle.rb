@@ -17,8 +17,9 @@ class Battle < ActiveRecord::Base
   def copy_decks
     fighters.each do |fighter|
       fighter.deck.cards.each do |card|
-        card_copy = CardInGame.create({ :fighter_id => fighter.id, :card_id => card.id, :attack => card.attack, :health => card.health })
-        write_attribute(:target_id, card_copy.id) if card.talent.include?("self") or card.talent.include?("own")
+        card_copy = CardInGame.create(card)
+#        card_copy.target_id = card_copy.id if card.talent.include?("self") or card.talent.include?("own")
+        card_copy.card_in_game = card_copy if card.talent.include?("self") or card.talent.include?("own")
       end
     end
   end

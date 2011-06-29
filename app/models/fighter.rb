@@ -72,21 +72,16 @@ class Fighter < ActiveRecord::Base
 #    false
 #  end
 
-  def toggle_state
-    self.each do |fighter|
+  def self.toggle_state(fighters, fbid)
+    fighters.each do |fighter|
       tmp_state = fighter.state
-
-      case event
-      when "proceed" || "wait"
-      if fighter.fbid == session[:fbid]
+      
+      if fighter.fbid == fbid
         fighter.wait!
       else
         fighter.proceed!
       end
-      when "finish"
-        fighter.finish!
-      end
-
+      
       tmp_state != fighter.state
     end
   end

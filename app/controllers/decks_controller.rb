@@ -22,6 +22,7 @@ class DecksController < ApplicationController
 
   def update
     head 418 unless @deck.change_state
+    head 200
   end
 
   def destroy

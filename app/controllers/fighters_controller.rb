@@ -9,7 +9,7 @@ class FightersController < ApplicationController
 
     if params[:battle_id]
       fighters = Fighter.find_all_by_battle_id(params[:battle_id])
-      toggle_flag = fighters.toggle_state
+      toggle_flag = Fighter.toggle_state(fighters,session[:fbid])
     end
 
     if(params[:fighter] and !params[:battle_id]) or (!params[:fighter] and params[:battle_id])

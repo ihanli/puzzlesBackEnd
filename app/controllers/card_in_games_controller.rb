@@ -9,7 +9,7 @@ class CardInGamesController < ApplicationController
         head 418
       end
     elsif params[:target]
-      if @card.update_attributes(params[:target])
+      if @card.update_attributes(:target_id => params[:target])
         head 200
       else
         head 500

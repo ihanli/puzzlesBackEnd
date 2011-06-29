@@ -8,6 +8,8 @@ class CardInGame < ActiveRecord::Base
   state :attacking
   state :destroyed
   state :removed, :enter => :clean_up
+  
+  attr_accessible :target_id
 
   private
   @@white_list = ["get_ready", "draw", "summon", "activate", "deactive", "place_unit", "cast", "attack", "destroy", "remove"]
