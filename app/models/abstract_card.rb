@@ -5,7 +5,7 @@ class AbstractCard < ActiveRecord::Base
 
   validates_presence_of :name, :description, :path_to_img, :mana, :loading, :target_type
   validates_uniqueness_of :name
-  validates_size_of :description, :within => 1..140
+  validates_size_of :description, :within => 1..255
   validates_size_of :path_to_img, :minimum => 5
   validates_numericality_of :mana, :only_integer => true, :greater_than_or_equal_to => 0
   validates_numericality_of :loading, :only_integer => true, :greater_than_or_equal_to => 0, :less_than => 6
