@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
- # skip_filter :login_required
   before_filter :prepare_session, :except => [:show, :destroy]
   before_filter :find_user, :only => [:show, :destroy]
 
@@ -27,7 +26,11 @@ class UsersController < ApplicationController
   end
 
   def register_and_login
-    User.find_or_create_by_fb_id(params[:id])
+    unless User.find_by_fb_id(params[:id])
+      user = User.create(:fb_id => params[:id])
+      create_default_deck(user.id)
+    end
+
     session[:fbid] = params[:id]
     session[:expiry_time] = MAX_SESSION_TIME.seconds.from_now
     head 200
@@ -36,5 +39,14 @@ class UsersController < ApplicationController
   protected
   def find_user
     @user = User.find_by_id(params[:id])
+  end
+  
+  def create_default_deck(user_id)
+    deck = Deck.create(:name => "Starter Deck")
+    abstract_cards = AbstractCard.all
+    
+    abstract_cards.each do |abstract_card|
+      card = Card.create(:abstract_card_id => abstract_card.id, :user_id => user_id, :puzzles => 0, :decks => [deck])
+    end
   end
 end
