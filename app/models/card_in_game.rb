@@ -13,7 +13,6 @@ class CardInGame < ActiveRecord::Base
   @@white_list = ["get_ready", "draw", "summon", "activate", "deactive", "place_unit", "cast", "attack", "destroy", "remove"]
   @@talent_list = ["attack", "health", "summon", "destroy", "deactivate"]
 
-  # TODO: test me
   def clean_up
     destroy
   end
@@ -99,42 +98,9 @@ class CardInGame < ActiveRecord::Base
 
   validates_presence_of :fighter_id, :card_id
   validates_associated :fighter, :card
-
-  def class_name
-    card.class_name
-  end
-
-  def target_type
-    card.target_type
-  end
-
-  def name
-    card.name
-  end
-
-  def loading
-    card.loading
-  end
-
-  def path_to_img
-    card.path_to_img
-  end
-
-  def description
-    card.description
-  end
-
-  def talent
-    card.talent
-  end
-
-  def mana
-    card.mana
-  end
-
-  def duration
-    card.duration
-  end
+  
+  delegate :target_type, :name,:loading, :path_to_img, :description, :talent, :mana, :to => :abstract_card
+  delegate :class_name, :duration, :to => :card
 
   def transition_to(event)
     @@white_list.each do |s|

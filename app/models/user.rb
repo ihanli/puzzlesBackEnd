@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   has_many :cards, :dependent => :delete_all
-  #TODO: dependent => test me
   has_many :fighters, :dependent => :delete_all
   has_many :battles, :through => :fighters
 

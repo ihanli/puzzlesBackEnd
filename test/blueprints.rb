@@ -8,6 +8,7 @@ AbstractCard.blueprint do
   name { "intergalactic proton powered electric advertising droid" }
   description { "some description" }
   path_to_img { "path/img.png" }
+  talent "me"
   loading { 0 }
   mana { 0 }
   target_type { "unit" }
@@ -19,7 +20,7 @@ Spell.blueprint do
 end
 
 Unit.blueprint do
-  attack { 0 }
+  attack { 3 }
   health { 0 }
   abstract_card_id { 1 }
 end

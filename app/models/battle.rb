@@ -8,17 +8,14 @@ class Battle < ActiveRecord::Base
   state :finished, :enter => :clean_up
 
   private
-  # TODO: test me
   def clean_up
     destroy
   end
 
-  # TODO: test me
   def copy_decks
     fighters.each do |fighter|
       fighter.deck.cards.each do |card|
         card_copy = CardInGame.create(card)
-#        card_copy.target_id = card_copy.id if card.talent.include?("self") or card.talent.include?("own")
         card_copy.card_in_game = card_copy if card.talent.include?("self") or card.talent.include?("own")
       end
     end

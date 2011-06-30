@@ -1,5 +1,4 @@
 class BattlesController < ApplicationController
- # before_filter :login_required
   before_filter :find_battle, :only => [:show]
 
   def index
@@ -22,8 +21,9 @@ class BattlesController < ApplicationController
     if battle.save
       battle = Battle.find_by_rid(params[:rid])
       user = User.find_by_fb_id(params[:fbid])
-      fighter = Fighter.new(:user_id => user.id, :battle_id => battle.id, :deck_id => Deck.find_decks_by_user(user.id).first)
+      fighter = Fighter.new(:user_id => user.id, :battle_id => battle.id, :deck => user.cards.first.decks.first)
       head 500 unless fighter.save
+      fighter.proceed!
     else
       head 500
     end
@@ -38,8 +38,9 @@ class BattlesController < ApplicationController
 
     battle.start!
     user = User.find_by_fb_id(params[:fbid])
-    fighter = Fighter.new(:user_id => user.id, :battle_id => battle.id, :deck_id => Deck.find_decks_by_user(user.id).first)
+    fighter = Fighter.new(:user_id => user.id, :battle_id => battle.id, :deck => user.cards.first.decks.first)
     head 500 unless fighter.save
+    fighter.wait!
     head 200
   end
 

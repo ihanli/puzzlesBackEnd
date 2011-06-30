@@ -15,4 +15,11 @@ class CardTest < ActiveSupport::TestCase
     test_card = Card.create(Card.plan)
     assert_valid test_card
   end
+  
+  should "return value of attack" do
+    test_card = Card.create(Card.plan)
+    AbstractCard.create(AbstractCard.plan)
+    Unit.create(Unit.plan)
+    assert_equal 3, test_card.attack
+  end
 end

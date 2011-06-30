@@ -21,7 +21,10 @@ class FighterTest < ActiveSupport::TestCase
   
   should "recover mana" do
     test_fighter_one = Fighter.create(Fighter.plan)
-    Fighter.create(Fighter.plan)
+    test_deck = Deck.create(Deck.plan)
+    test_deck.cards << Card.create(Card.plan)
+    test_deck.cards.first.abstract_card = AbstractCard.create(AbstractCard.plan)
+    test_deck.fighter = test_fighter_one
     test_battle = Battle.create(Battle.plan)
     test_fighter_one.battle = test_battle
     test_battle.start!

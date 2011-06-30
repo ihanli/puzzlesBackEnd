@@ -1,6 +1,6 @@
 class Fighter < ActiveRecord::Base
   acts_as_state_machine :initial => :ready
-  state :ready
+  state :ready, :enter => :prepare_for_battle
   state :proceeding, :enter => :increase_mana
   state :waiting
   state :finished, :enter => :clean_up
@@ -16,6 +16,17 @@ class Fighter < ActiveRecord::Base
 
   def clean_up
     battle.destroy
+  end
+  
+  def prepare_for_battle
+    fighter.deck.cards.each do |card|
+      CardInGame.create(:fighter => fighter, :card => card)
+    end
+    
+    4.times do
+      rand_card_in_game = fighter.card_in_games.first(:conditions => "state = 'ready'", :order => "RAND()")
+      rand_card_in_game.draw!
+    end
   end
 
   public
@@ -52,7 +63,6 @@ class Fighter < ActiveRecord::Base
     self.includes(:user).find_by_fb_id(fb_id)
   end
 
-  #TODO: test me from here
   def fbid
     user.fb_id
   end
@@ -60,17 +70,6 @@ class Fighter < ActiveRecord::Base
   def experience
     user.experience
   end
-
-#  def transition_to(event)
-#    @@white_list.each do |s|
-#      if s == event
-#        tmp_state = state
-#        send("#{event}!")
-#        return true if tmp_state != state
-#      end
-#    end
-#    false
-#  end
 
   def self.toggle_state(fighters, fbid)
     fighters.each do |fighter|

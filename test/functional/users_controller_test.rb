@@ -1,6 +1,21 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
+  context "create default deck" do
+    setup do
+      AbstractCard.create(AbstractCard.plan)
+      AbstractCard.create(:name => "Owl", :description => "some description", :path_to_img => "path/img.png", :loading => 0, :mana => 0, :target_type => "Unit")
+
+      assert_equal 2, AbstractCard.count
+
+      post :register_and_login, :id => 2655
+    end
+    
+    should "have created the deck" do
+      assert_equal Deck.all.first.id, Card.all.first.decks.first.id
+    end
+  end
+  
   context "register and login user" do
     setup do
       post :register_and_login, :id => 2655

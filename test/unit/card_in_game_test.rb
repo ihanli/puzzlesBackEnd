@@ -99,34 +99,6 @@ class CardInGameTest < ActiveSupport::TestCase
     context "destroy attacking unit" do
       should transition_from_through("attacking", "destroy")
     end
-#    FIXME: write alternative test for tests of 'finished' state
-#    context "take card from deck out of game" do
-#      should transition_from_through("ready", "remove")
-#    end
-#
-#    context "take drawn card out of game" do
-#      should transition_from_through("drawn", "remove")
-#    end
-#
-#    context "take summoned unit out of game" do
-#      should transition_from_through("summoned", "remove")
-#    end
-#
-#    context "take inactive unit out of game" do
-#      should transition_from_through("inactive", "remove")
-#    end
-#
-#    context "take casted spell out of game" do
-#      should transition_from_through("casted", "remove")
-#    end
-#
-#    context "take attacking unit out of game" do
-#      should transition_from_through("attacking", "remove")
-#    end
-#
-#    context "take card from cemetery out of game" do
-#      should transition_from_through("destroyed", "remove")
-#    end
   end
 
   should "change to given state" do
@@ -138,8 +110,10 @@ class CardInGameTest < ActiveSupport::TestCase
 
   should "test helper methods" do
     test_abstract_card = AbstractCard.create(AbstractCard.plan)
-    Card.create(Card.plan)
+    test_card = Card.create(Card.plan)
+    test_card.abstract_card = test_abstract_card
     test_card_in_game = CardInGame.create(CardInGame.plan)
+    test_card_in_game.card = test_card
 
     assert_equal test_card_in_game.target_type, test_abstract_card.target_type
     assert_equal test_card_in_game.name, test_abstract_card.name
