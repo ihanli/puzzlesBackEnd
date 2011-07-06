@@ -19,12 +19,12 @@ class Fighter < ActiveRecord::Base
   end
   
   def prepare_for_battle
-    fighter.deck.cards.each do |card|
-      CardInGame.create(:fighter => fighter, :card => card)
+    self.deck.cards.each do |card|
+      CardInGame.create(:fighter => self, :card => card)
     end
     
     4.times do
-      rand_card_in_game = fighter.card_in_games.first(:conditions => "state = 'ready'", :order => "RAND()")
+      rand_card_in_game = self.card_in_games.first(:conditions => "state = 'ready'", :order => "RAND()") # RANDOM() could be RAND() on mysql
       rand_card_in_game.draw!
     end
   end
@@ -63,6 +63,7 @@ class Fighter < ActiveRecord::Base
     self.includes(:user).find_by_fb_id(fb_id)
   end
 
+  #TODO: test me from here
   def fbid
     user.fb_id
   end
@@ -70,6 +71,17 @@ class Fighter < ActiveRecord::Base
   def experience
     user.experience
   end
+
+#  def transition_to(event)
+#    @@white_list.each do |s|
+#      if s == event
+#        tmp_state = state
+#        send("#{event}!")
+#        return true if tmp_state != state
+#      end
+#    end
+#    false
+#  end
 
   def self.toggle_state(fighters, fbid)
     fighters.each do |fighter|

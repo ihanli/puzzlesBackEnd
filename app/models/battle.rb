@@ -1,21 +1,26 @@
 class Battle < ActiveRecord::Base
   acts_as_state_machine :initial => :pending
   state :pending
-  state :opened, :enter => :copy_decks
+  state :opened#, :enter => :copy_decks
   state :drawing
   state :placing
   state :attacking
   state :finished, :enter => :clean_up
 
   private
+  # TODO: test me
   def clean_up
     destroy
   end
 
+  # TODO: test me
   def copy_decks
     fighters.each do |fighter|
+      puts fighter.inspect
+      puts fighter.deck.inspect
       fighter.deck.cards.each do |card|
         card_copy = CardInGame.create(card)
+#        card_copy.target_id = card_copy.id if card.talent.include?("self") or card.talent.include?("own")
         card_copy.card_in_game = card_copy if card.talent.include?("self") or card.talent.include?("own")
       end
     end
